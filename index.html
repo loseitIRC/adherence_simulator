@@ -1,0 +1,74 @@
+<!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+<!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+<head>
+  <link href="css/c3.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js" charset="utf-8"></script>
+  <script src="js/c3.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+        <div class="col-xs-12 text-center" style="margin-bottom: 25px">
+          <!-- some descriptive text about this chart's purpose -->
+          <p>
+            This page simulates a simple model of a weight loss intervention
+            with dynamic adherence to a prescribed diet. For each day of the
+            model, a random number decides if the daily intake will be above or
+            below the prescribed amount, as well as the size of the deviation.
+            A simple +/- 5 lb random fluctuation is added to each day to
+            simulate water and fecal mass.
+          </p>
+        </div>
+        <div class="col-md-8">
+          <div id="chart"></div>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <div class="col-xs-12 text-center">
+              <input id="recalcbtn" type="button" value="Recalculate"/>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">Starting weight (kg)</div>
+            <div class="col-md-4"><input id="startweight" value="111"/></div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">Baseline intake (kcal/day)</div>
+            <div class="col-md-4"><input id="baseintake" value="1600"/></div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">Age</div>
+            <div class="col-md-4"><input id="age" value="27"/></div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">Height (cm)</div>
+            <div class="col-md-4"><input id="height" value="180"/></div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">Intake overage (kcal/day) on non-adherence days</div>
+            <div class="col-md-4"><input id="intake_overage" value="500"/></div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">Intake underage (kcal/day) on adherence days</div>
+            <div class="col-md-4"><input id="intake_underage" value="200"/></div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">Adherence fraction</div>
+            <div class="col-md-4"><input id="adherence_frac" value="0.7"/></div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">Number of days to simulate</div>
+            <div class="col-md-4"><input id="numdays" value="365"/></div>
+          </div>
+        </div>
+        <div class="col-xs-12 text-center" style="margin-top: 15px">
+          <!-- footnotes and references -->
+          Uses the <a href="https://en.wikipedia.org/wiki/Basal_metabolic_rate#BMR_estimation_formulas">Mifflin St Jeor</a> estimation for BMR with a fixed TDEE multiplier of 1.2<BR>
+          Inspired by <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4135489/">Thomas et al.</a>.
+        </div>
+    </div>
+  </div>
+</body>
+<script src="js/sim.js"></script>
