@@ -55,7 +55,7 @@ function weightSimulation() {
     if (Math.random() < ADHERENCE_FRACTION) {
       excess = INTAKE - current_TDEE - INTAKE_UNDERAGE * Math.random() + waterAndPoo();
     } else {
-      excess = INTAKE + INTAKE_OVERAGE * Math.random() + waterAndPoo();
+      excess = INTAKE - current_TDEE + INTAKE_OVERAGE * Math.random() + waterAndPoo();
     }
     d.push({'days': i,
   					'trueweight': d[d.length-1].trueweight + excess/3500/7,
