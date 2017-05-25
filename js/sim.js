@@ -10,15 +10,27 @@ var chart = c3.generate({
     axis: {
       x: {
         label: 'Day #',
-        tick: { count: 9 }
+        tick: {
+          count: 9,
+          format: (d)=>d3.round(d)
+        }
       },
       y: {
-        label: 'Weight (kg)'
+        label: 'Weight (kg)',
+        tick: {
+          values: Array.from(new Array(150), (x,i) => 50 + i)
+        }
+      }
+    },
+    tooltip: {
+      format: {
+        title: function (d) { return 'Day ' + d; },
+        value: (val)=>d3.format('.1f')(val) + ' kg'
       }
     },
     transition: {
       duration: 1000
-    }
+    },
 });
 
 
