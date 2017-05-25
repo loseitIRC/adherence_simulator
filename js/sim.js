@@ -71,17 +71,17 @@ function weightSimulation() {
 
 function updateChart(chart, d) {
   chart.load({
-  columns: [
-    ['x'].concat(d.map(
-      (p)=>p.days)
-    ),
-    ['Daily weight'].concat(d.map(
-      (p)=>p.trueweight)
-    ),
-    ['Ideal trend (no water/poo)'].concat(d.map(
-      (p)=>p.idealweight)
-    )
-  ]
+    columns: [
+      ['x'].concat(d.map(
+        (p)=>p.days)
+      ),
+      ['Daily weight'].concat(d.map(
+        (p)=>p.trueweight)
+      ),
+      ['Ideal trend (no water/poo)'].concat(d.map(
+        (p)=>p.idealweight)
+      )
+    ]
   });
 }
 
