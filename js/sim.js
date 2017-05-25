@@ -31,35 +31,38 @@ function getInputIntValue(selector) {
 }
 
 function waterAndPoo() {
-  return 5*(2*Math.random() - 1);
+  var WATER_AND_POO_FLUCTUATION = getInputFloatValue("#water_poo_sigma");
+  return WATER_AND_POO_FLUCTUATION * (2*Math.random() - 1);
 }
 
+NORMALDIST = d3.random.normal();
 function weightSimulation() {
-  STARTWEIGHT_KG = getInputFloatValue("#startweight");
-  AGE = getInputIntValue("#age");
-  HEIGHT_CM = getInputFloatValue("#height");
-  INTAKE = getInputFloatValue("#baseintake");
-  INTAKE_OVERAGE = getInputFloatValue("#intake_overage"); // Defines overeating range
-  INTAKE_UNDERAGE = getInputFloatValue("#intake_underage"); // Defines undereating range
-  ADHERENCE_FRACTION = getInputFloatValue("#adherence_frac"); // Fraction of the time dietary plan is adhered to
-  NUMDAYS = getInputIntValue("#numdays");
-  current_TDEE = BMR(HEIGHT_CM, STARTWEIGHT_KG, 27, "M")*1.2;
+  var STARTWEIGHT_KG = getInputFloatValue("#startweight"),
+      AGE = getInputIntValue("#age"),
+      HEIGHT_CM = getInputFloatValue("#height"),
+      INTAKE = getInputFloatValue("#baseintake"),
+      INTAKE_OVERAGE = getInputFloatValue("#intake_overage"), // Defines overeating range
+      INTAKE_UNDERAGE = getInputFloatValue("#intake_underage"), // Defines undereating range
+      ADHERENCE_FRACTION = getInputFloatValue("#adherence_frac"), // Fraction of the time dietary plan is adhered to
+      NUMDAYS = getInputIntValue("#numdays");
+
+  current_TDEE = BMR(HEIGHT_CM, STARTWEIGHT_KG, AGE, "M")*1.2;
   d = [{
     'days': 0,
     'idealweight': STARTWEIGHT_KG,
     'trueweight': STARTWEIGHT_KG
   }];
   for(i=1; i<NUMDAYS; i++) {
-    current_TDEE = BMR(HEIGHT_CM, d[d.length-1].trueweight, 27, "M")*1.2;
-    idealexcess = INTAKE - current_TDEE;
+    current_TDEE = BMR(HEIGHT_CM, d[d.length-1].idealweight, 27, "M")*1.2;
+    // The distribution here is...very lazy. I should think about this more
     if (Math.random() < ADHERENCE_FRACTION) {
-      excess = INTAKE - current_TDEE - INTAKE_UNDERAGE * Math.random() + waterAndPoo();
+      excess = INTAKE - current_TDEE - Math.abs(d3.random.normal(INTAKE_UNDERAGE, INTAKE_UNDERAGE*0.25)());
     } else {
-      excess = INTAKE - current_TDEE + INTAKE_OVERAGE * Math.random() + waterAndPoo();
+      excess = current_TDEE + Math.abs(d3.random.normal(INTAKE_OVERAGE, INTAKE_OVERAGE*0.25)());;
     }
     d.push({'days': i,
-  					'trueweight': d[d.length-1].trueweight + excess/3500/7,
-            'idealweight': d[d.length-1].idealweight + idealexcess/3500/7
+            'trueweight': d[d.length-1].idealweight + excess/3500/7 + waterAndPoo(),
+            'idealweight': d[d.length-1].idealweight + excess/3500/7
   				});
   }
 
@@ -72,12 +75,12 @@ function updateChart(chart, d) {
     ['x'].concat(d.map(
       (p)=>p.days)
     ),
-    ['trueweight'].concat(d.map(
+    ['Daily weight'].concat(d.map(
       (p)=>p.trueweight)
+    ),
+    ['Ideal trend (no water/poo)'].concat(d.map(
+      (p)=>p.idealweight)
     )
-    // ['idealweight'].concat(d.map(
-    //   (p)=>p.idealweight)
-    // ),
   ]
   });
 }
