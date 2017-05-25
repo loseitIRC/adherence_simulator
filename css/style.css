@@ -2,6 +2,15 @@ input {
   width: 100%
 }
 
+.slider {
+  padding-right: 0px; 
+  padding-top:5px;
+}
+
+.sliderlabel {
+  padding-left: 5px;
+}
+
 #recalcbtn {
   margin-bottom: 10px
 }

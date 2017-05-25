@@ -1,38 +1,9 @@
-var chart = c3.generate({
-    size: {
-      // width: 960,
-      height: 500
-    },
-    data: {
-        x: 'x',
-        columns: ['x', 0, 365]
-    },
-    axis: {
-      x: {
-        label: 'Day #',
-        tick: {
-          count: 9,
-          format: (d)=>d3.round(d)
-        }
-      },
-      y: {
-        label: 'Weight (kg)',
-        tick: {
-          values: Array.from(new Array(150), (x,i) => 50 + i)
-        }
-      }
-    },
-    tooltip: {
-      format: {
-        title: function (d) { return 'Day ' + d; },
-        value: (val)=>d3.format('.1f')(val) + ' kg'
-      }
-    },
-    transition: {
-      duration: 1000
-    },
-});
+var chart;
 
+function updateSliderLabel(e) {
+    var labelid = "#" + e.target.id + "_label";
+    document.querySelector(labelid).value = e.target.value;
+}
 
 function getInputFloatValue(selector) {
   return parseFloat(document.querySelector(selector).value);
@@ -126,5 +97,41 @@ function simulateAndUpdate() {
   updateChart(chart, d);
 }
 
-document.querySelector("#recalcbtn").onclick = simulateAndUpdate;
-window.onload = simulateAndUpdate;
+window.onload = (function() {
+    console.log("loaded")
+    chart = c3.generate({
+      size: {
+        // width: 960,
+        height: 500
+      },
+      data: {
+          x: 'x',
+          columns: ['x', 0, 365]
+      },
+      axis: {
+        x: {
+          label: 'Day #',
+          tick: {
+            count: 9,
+            format: (d)=>d3.round(d)
+          }
+        },
+        y: {
+          label: 'Weight (kg)',
+          tick: {
+            values: Array.from(new Array(150), (x,i) => 50 + i)
+          }
+        }
+      },
+      tooltip: {
+        format: {
+          title: function (d) { return 'Day ' + d; },
+          value: (val)=>d3.format('.1f')(val) + ' kg'
+        }
+      },
+      transition: {
+        duration: 1000
+      },
+  });
+  simulateAndUpdate();
+})
