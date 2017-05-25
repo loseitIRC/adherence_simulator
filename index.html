@@ -15,10 +15,10 @@
           <p>
             This page simulates a simple model of a weight loss intervention
             with dynamic adherence to a prescribed diet. For each day of the
-            model, a random number decides if the daily intake will be above or
-            below the prescribed amount, as well as the size of the deviation.
-            A simple +/- 5 lb random fluctuation is added to each day to
-            simulate water and fecal mass.
+            model, a random uniform number decides if the daily intake will 
+            be above or below the prescribed amount.  A uniform random 
+            fluctuation is added to each day to simulate water and fecal mass.
+            For now, this model only applies to men.
           </p>
         </div>
         <div class="col-md-8">
@@ -36,7 +36,7 @@
           </div>
           <div class="row">
             <div class="col-md-8">Baseline intake (kcal/day)</div>
-            <div class="col-md-4"><input id="baseintake" value="1600"/></div>
+            <div class="col-md-4"><input id="baseintake" value="2000"/></div>
           </div>
           <div class="row">
             <div class="col-md-8">Age</div>
@@ -47,20 +47,24 @@
             <div class="col-md-4"><input id="height" value="180"/></div>
           </div>
           <div class="row">
-            <div class="col-md-8">Intake overage (kcal/day) on non-adherence days</div>
+            <div class="col-md-8">Average intake overage (above TDEE) (kcal/day) on non-adherence days</div>
             <div class="col-md-4"><input id="intake_overage" value="500"/></div>
           </div>
           <div class="row">
-            <div class="col-md-8">Intake underage (kcal/day) on adherence days</div>
+            <div class="col-md-8">Average intake underage (kcal/day) on adherence days</div>
             <div class="col-md-4"><input id="intake_underage" value="200"/></div>
           </div>
           <div class="row">
             <div class="col-md-8">Adherence fraction</div>
-            <div class="col-md-4"><input id="adherence_frac" value="0.7"/></div>
+            <div class="col-md-4"><input id="adherence_frac" value="0.9"/></div>
           </div>
           <div class="row">
             <div class="col-md-8">Number of days to simulate</div>
-            <div class="col-md-4"><input id="numdays" value="365"/></div>
+            <div class="col-md-4"><input id="numdays" value="180"/></div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">Water/feces fluctuation size</div>
+            <div class="col-md-4"><input id="water_poo_sigma" value="0.25"/></div>
           </div>
         </div>
         <div class="col-xs-12 text-center" style="margin-top: 15px">
