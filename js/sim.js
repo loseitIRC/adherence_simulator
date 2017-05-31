@@ -1,8 +1,8 @@
 var chart;
 
-function updateSliderLabel(e) {
-    var labelid = "#" + e.target.id + "_label";
-    document.querySelector(labelid).value = e.target.value;
+function updateSliderLabel(evt) {
+    var labelid = "#" + evt.target.id + "_label";
+    document.querySelector(labelid).value = evt.target.value;
 }
 
 function getInputValue(selector) {
@@ -101,6 +101,15 @@ function BMR(height_in_cm, weight_in_kg, age, sex) {
   return bmr;
 }
 
+function updateTDEE() {
+  var STARTWEIGHT_KG = getInputFloatValue("#startweight"),
+      AGE = getInputIntValue("#age"),
+      SEX = getInputValue("input[type=radio][name='sex']:checked"),
+      HEIGHT_CM = getInputFloatValue("#height");
+  document.querySelector("#TDEE").value = Math.round(BMR(HEIGHT_CM, STARTWEIGHT_KG, AGE, SEX)*1.2);
+  simulateAndUpdate();
+}
+
 function inches_to_cm(inches) {
   return inches * 2.54;
 }
@@ -154,5 +163,6 @@ window.onload = (function() {
   // stupid hack to set opacity of circles
   c3.chart.internal.fn.opacityForCircle = ()=> 0.7;
 
+  updateTDEE();
   simulateAndUpdate();
 })

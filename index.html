@@ -33,26 +33,30 @@
           </div>
           <div class="row">
             <div class="col-md-8">Starting weight (kg)</div>
-            <div class="col-md-4"><input id="startweight" value="111"/></div>
-          </div>
-          <div class="row">
-            <div class="col-md-8">Baseline intake (kcal/day)</div>
-            <div class="col-md-4"><input id="baseintake" value="2000"/></div>
+            <div class="col-md-4"><input id="startweight" onChange="updateTDEE()" value="111"/></div>
           </div>
           <div class="row">
             <div class="col-md-8">Age</div>
-            <div class="col-md-4"><input id="age" value="27"/></div>
+            <div class="col-md-4"><input id="age" onChange="updateTDEE()" value="27"/></div>
           </div>
           <div class="row">
             <div class="col-md-8">Sex</div>
             <div class="col-md-4">
-                <label for="sex"><input value='M' onChange="simulateAndUpdate()" type="radio" name="sex" checked>Male</label>
-                <label for="sex"><input value='F' onChange="simulateAndUpdate()" type="radio" name="sex">Female</label>
+                <label for="sex"><input value='M' onChange="updateTDEE();" type="radio" name="sex" checked>Male</label>
+                <label for="sex"><input value='F' onChange="updateTDEE();" type="radio" name="sex">Female</label>
             </div>
           </div>
           <div class="row">
             <div class="col-md-8">Height (cm)</div>
-            <div class="col-md-4"><input id="height" value="180"/></div>
+            <div class="col-md-4"><input id="height" value="180" onChange="updateTDEE()"/></div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">Daily calories required to maintain starting weight (sedentary)</div>
+            <div class="col-md-4"><input id="TDEE" value="" readonly/></div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">Goal daily calorie intake</div>
+            <div class="col-md-4"><input id="baseintake" value="2000"/></div>
           </div>
           <div class="row">
             <div class="col-md-8">Average calories overeaten on "cheat" days</div>
@@ -83,7 +87,13 @@
           </div>
           <div class="row">
             <div class="col-md-8">Number of days to simulate</div>
-            <div class="col-md-4"><input id="numdays" value="180"/></div>
+            <div class="col-md-3">
+              <input oninput="updateSliderLabel(event)" onChange="simulateAndUpdate()" type="range" min="14" max="721" step="7" id="numdays" value="182"/>
+            </div>
+            <div class="col-md-1 sliderlabel">
+                <output for="#numdays" id="numdays_label">182</output>
+            </div>
+            <!-- <div class="col-md-4"><input id="numdays" value="180"/></div> -->
           </div>
           <div class="row" style="display:none">
             <div class="col-md-8">Water/feces fluctuation size</div>
