@@ -27,13 +27,15 @@ function weightSimulation() {
       INTAKE_OVERAGE = getInputFloatValue("#intake_overage"), // Defines overeating range
       INTAKE_UNDERAGE = getInputFloatValue("#intake_underage"), // Defines undereating range
       ADHERENCE_FRACTION = getInputFloatValue("#adherence_frac"), // Fraction of the time dietary plan is adhered to
-      NUMDAYS = getInputIntValue("#numdays");
+      NUMDAYS = getInputIntValue("#numdays"),
+      trueweight, idealweight, trend;
 
   current_TDEE = BMR(HEIGHT_CM, STARTWEIGHT_KG, AGE, "M")*1.2;
   d = [{
     'days': 0,
     'idealweight': STARTWEIGHT_KG,
-    'trueweight': STARTWEIGHT_KG
+    'trueweight': STARTWEIGHT_KG,
+    'trend': STARTWEIGHT_KG
   }];
   for(i=1; i<NUMDAYS; i++) {
     current_TDEE = BMR(HEIGHT_CM, d[d.length-1].idealweight, 27, "M")*1.2;
@@ -43,10 +45,16 @@ function weightSimulation() {
     } else {
       excess = Math.abs(d3.random.normal(INTAKE_OVERAGE, INTAKE_OVERAGE*0.25)());;
     }
+    idealweight = d[d.length-1].idealweight + excess/3500/7
+    trueweight = idealweight + waterAndPoo();
+    // John Walker's exponentially-weighted moving average, see: 
+    // https://www.fourmilab.ch/hackdiet/e4/pencilpaper.html
+    trend = (trueweight - d[d.length-1].trend)/10 + d[d.length-1].trend; 
     d.push({'days': i,
-            'trueweight': d[d.length-1].idealweight + excess/3500/7 + waterAndPoo(),
-            'idealweight': d[d.length-1].idealweight + excess/3500/7
-  				});
+            'trueweight': trueweight,
+            'idealweight': idealweight,
+            'trend': trend
+    });
   }
 
   return d;
@@ -61,10 +69,14 @@ function updateChart(chart, d) {
       ['Daily weight'].concat(d.map(
         (p)=>p.trueweight)
       ),
-      ['Ideal trend (no water/poo)'].concat(d.map(
-        (p)=>p.idealweight)
+      ['Moving trend'].concat(d.map(
+        (p)=>p.trend)
       )
-    ]
+    ], 
+    types: {
+      'Daily weight': 'scatter',
+      'Moving trend': 'line'
+    }
   });
 }
 
@@ -105,6 +117,7 @@ window.onload = (function() {
         height: 500
       },
       data: {
+          type: 'scatter',
           x: 'x',
           columns: ['x', 0, 365]
       },
@@ -133,5 +146,8 @@ window.onload = (function() {
         duration: 1000
       },
   });
+  // stupid hack to set opacity of circles
+  c3.chart.internal.fn.opacityForCircle = ()=> 0.7;
+
   simulateAndUpdate();
 })
