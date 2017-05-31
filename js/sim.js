@@ -41,7 +41,7 @@ function weightSimulation() {
     if (Math.random() < ADHERENCE_FRACTION) {
       excess = INTAKE - current_TDEE - Math.abs(d3.random.normal(INTAKE_UNDERAGE, INTAKE_UNDERAGE*0.25)());
     } else {
-      excess = current_TDEE + Math.abs(d3.random.normal(INTAKE_OVERAGE, INTAKE_OVERAGE*0.25)());;
+      excess = Math.abs(d3.random.normal(INTAKE_OVERAGE, INTAKE_OVERAGE*0.25)());;
     }
     d.push({'days': i,
             'trueweight': d[d.length-1].idealweight + excess/3500/7 + waterAndPoo(),
