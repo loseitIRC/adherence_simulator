@@ -79,7 +79,7 @@ function updateChart(chart, d) {
       )
     ], 
     types: {
-      'Daily weight': 'scatter',
+      'Daily weight': 'line',
       'Moving trend': 'line'
     }
   });
