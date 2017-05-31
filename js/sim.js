@@ -26,7 +26,7 @@ function weightSimulation() {
       INTAKE = getInputFloatValue("#baseintake"),
       INTAKE_OVERAGE = getInputFloatValue("#intake_overage"), // Defines overeating range
       INTAKE_UNDERAGE = getInputFloatValue("#intake_underage"), // Defines undereating range
-      ADHERENCE_FRACTION = getInputFloatValue("#adherence_frac"), // Fraction of the time dietary plan is adhered to
+      ADHERENCE_FRACTION = getInputFloatValue("#adherence_frac") / 7, // Fraction of the time dietary plan is adhered to
       NUMDAYS = getInputIntValue("#numdays"),
       trueweight, idealweight, trend;
 

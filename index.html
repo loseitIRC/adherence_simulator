@@ -56,12 +56,12 @@
             <div class="col-md-4"><input id="intake_underage" value="200"/></div>
           </div>
           <div class="row">
-            <div class="col-md-8">Adherence fraction</div>
+            <div class="col-md-8">Average number of "strict" days per week</div>
             <div class="col-md-3 slider">
-                <input oninput="updateSliderLabel(event)" onChange="simulateAndUpdate()" type="range" min="0.0" max="1.0" step="0.05" id="adherence_frac" value="0.7"/>
+                <input oninput="updateSliderLabel(event)" onChange="simulateAndUpdate()" type="range" min="0.0" max="7.0" step="1.0" id="adherence_frac" value="6.0"/>
             </div>
             <div class="col-md-1 sliderlabel">
-                <output for="#adherence_frac" id="adherence_frac_label">0.7</output>
+                <output for="#adherence_frac" id="adherence_frac_label">6</output>
             </div>
           </div>
           <div class="row">
