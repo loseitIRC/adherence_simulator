@@ -56,11 +56,21 @@
           </div>
           <div class="row">
             <div class="col-md-8">Average calories overeaten on "cheat" days</div>
-            <div class="col-md-4"><input id="intake_overage" value="500"/></div>
+            <div class="col-md-3 slider">
+                <input oninput="updateSliderLabel(event)" onChange="simulateAndUpdate()" type="range" min="0.0" max="1000" step="100" id="intake_overage" value="500"/>
+            </div>
+            <div class="col-md-1 sliderlabel">
+                <output for="#intake_overage" id="intake_overage_label">500</output>
+            </div>
           </div>
           <div class="row">
-            <div class="col-md-8">Average calories undereaten on "strict" days</div>
-            <div class="col-md-4"><input id="intake_underage" value="200"/></div>
+            <div class="col-md-8">Average calories <i>BELOW GOAL</i> on "strict" days</div>
+            <div class="col-md-3 slider">
+                <input oninput="updateSliderLabel(event)" onChange="simulateAndUpdate()" type="range" min="0.0" max="1000" step="100" id="intake_underage" value="200"/>
+            </div>
+            <div class="col-md-1 sliderlabel">
+                <output for="#intake_underage" id="intake_underage_label">200</output>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-8">Average number of "strict" days per week</div>
