@@ -43,7 +43,7 @@ function weightSimulation() {
     'trend': STARTWEIGHT_KG
   }];
   for(i=1; i<NUMDAYS; i++) {
-    current_TDEE = BMR(HEIGHT_CM, d[d.length-1].idealweight, 27, "M")*1.2;
+    current_TDEE = BMR(HEIGHT_CM, d[d.length-1].idealweight, 27, SEX)*1.2;
     // The distribution here is...very lazy. I should think about this more
     if (Math.random() < ADHERENCE_FRACTION) {
       excess = INTAKE - current_TDEE - Math.abs(d3.random.normal(INTAKE_UNDERAGE, INTAKE_UNDERAGE*0.25)());
