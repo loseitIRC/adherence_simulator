@@ -5,6 +5,10 @@ function updateSliderLabel(e) {
     document.querySelector(labelid).value = e.target.value;
 }
 
+function getInputValue(selector) {
+  return document.querySelector(selector).value;
+}
+
 function getInputFloatValue(selector) {
   return parseFloat(document.querySelector(selector).value);
 }
@@ -22,6 +26,7 @@ NORMALDIST = d3.random.normal();
 function weightSimulation() {
   var STARTWEIGHT_KG = getInputFloatValue("#startweight"),
       AGE = getInputIntValue("#age"),
+      SEX = getInputValue("input[type=radio][name='sex']:checked"),
       HEIGHT_CM = getInputFloatValue("#height"),
       INTAKE = getInputFloatValue("#baseintake"),
       INTAKE_OVERAGE = getInputFloatValue("#intake_overage"), // Defines overeating range
@@ -30,7 +35,7 @@ function weightSimulation() {
       NUMDAYS = getInputIntValue("#numdays"),
       trueweight, idealweight, trend;
 
-  current_TDEE = BMR(HEIGHT_CM, STARTWEIGHT_KG, AGE, "M")*1.2;
+  current_TDEE = BMR(HEIGHT_CM, STARTWEIGHT_KG, AGE, SEX)*1.2;
   d = [{
     'days': 0,
     'idealweight': STARTWEIGHT_KG,

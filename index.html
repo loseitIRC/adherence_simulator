@@ -18,8 +18,8 @@
             with dynamic adherence to a prescribed diet. For each day of the
             model, a random uniform number decides if the daily intake will 
             be above or below the prescribed amount.  A uniform random 
-            fluctuation is added to each day to simulate water and fecal mass.
-            For now, this model only applies to men.
+            0.5 kg fluctuation is added to each day to simulate water and fecal 
+            mass.
           </p>
         </div>
         <div class="col-md-8">
@@ -44,15 +44,22 @@
             <div class="col-md-4"><input id="age" value="27"/></div>
           </div>
           <div class="row">
+            <div class="col-md-8">Sex</div>
+            <div class="col-md-4">
+                <label for="sex"><input value='M' onChange="simulateAndUpdate()" type="radio" name="sex" checked>Male</label>
+                <label for="sex"><input value='F' onChange="simulateAndUpdate()" type="radio" name="sex">Female</label>
+            </div>
+          </div>
+          <div class="row">
             <div class="col-md-8">Height (cm)</div>
             <div class="col-md-4"><input id="height" value="180"/></div>
           </div>
           <div class="row">
-            <div class="col-md-8">Average intake overage (above TDEE) (kcal/day) on non-adherence days</div>
+            <div class="col-md-8">Average calories overeaten on "cheat" days</div>
             <div class="col-md-4"><input id="intake_overage" value="500"/></div>
           </div>
           <div class="row">
-            <div class="col-md-8">Average intake underage (kcal/day) on adherence days</div>
+            <div class="col-md-8">Average calories undereaten on "strict" days</div>
             <div class="col-md-4"><input id="intake_underage" value="200"/></div>
           </div>
           <div class="row">
@@ -68,13 +75,13 @@
             <div class="col-md-8">Number of days to simulate</div>
             <div class="col-md-4"><input id="numdays" value="180"/></div>
           </div>
-          <div class="row">
+          <div class="row" style="display:none">
             <div class="col-md-8">Water/feces fluctuation size</div>
             <div class="col-md-3 slider">
-                <input oninput="updateSliderLabel(event)" onChange="simulateAndUpdate()" type="range" min="0.0" max="2.0" step="0.05" id="water_poo_sigma" value="0.25"/>
+                <input oninput="updateSliderLabel(event)" onChange="simulateAndUpdate()" type="range" min="0.0" max="2.0" step="0.05" id="water_poo_sigma" value="0.5"/>
             </div>
             <div class="col-md-1 sliderlabel">
-                <output for="#water_poo_sigma" id="water_poo_sigma_label">0.25</output>
+                <output for="#water_poo_sigma" id="water_poo_sigma_label">0.5</output>
             </div>
           </div>
         </div>
