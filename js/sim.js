@@ -83,13 +83,13 @@ function updateChart(chart, d) {
 var haveplotted = false;
 
 //** Calculate basal metabolic rate using Mifflin St Jeor */
-function BMR(height_in_cm, weight_in_kg, age, gender) {
-  if (gender == "M") {
+function BMR(height_in_cm, weight_in_kg, age, sex) {
+  if (sex == "M") {
     s = 5;
-  } else if (gender == "F") {
+  } else if (sex == "F") {
     s = -161;
   } else {
-    throw 'Gender must be "M" or "F"';
+    throw 'Sex must be "M" or "F"';
   }
 
   bmr = 10*weight_in_kg + 6.25*height_in_cm - 5.0*age + s;
